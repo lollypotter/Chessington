@@ -66,5 +66,12 @@ namespace Chessington.GameEngine
            
             return legalMoves;
         }
+
+        public static bool SquareIsEmpty(Square square, Board board)
+        {
+            var squareToCheck = board.GetPiece(square);
+
+            return squareToCheck == null; //if square is null/empty, returns true
+        }
     }
 }

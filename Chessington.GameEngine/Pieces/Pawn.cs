@@ -14,35 +14,63 @@ namespace Chessington.GameEngine.Pieces
         {
             var boardLocation = board.FindPiece(this);
             var legalMoves = new List<Square>();
-            legalMoves = GetLegalMoves(boardLocation, legalMoves);
+            legalMoves = GetLegalMoves(boardLocation, legalMoves, board);
             return legalMoves;
         }
 
-        private List<Square> GetLegalMoves(Square boardLocation, List<Square> legalMoves)
+        private List<Square> GetLegalMoves(Square boardLocation, List<Square> legalMoves, Board board)
         {
             if (Player == Player.Black)
             {
                 switch (boardLocation.Row)
                 {
                     case 1: //moves up one or two squares
-                        legalMoves.Add(new Square(boardLocation.Row + 2, boardLocation.Col));
-                        legalMoves.Add(new Square(boardLocation.Row + 1, boardLocation.Col));
+                        var oneSqMove = new Square(boardLocation.Row + 1, boardLocation.Col);
+                        var twoSqMove = new Square(boardLocation.Row + 2, boardLocation.Col);
+                        
+                        if (Moves.SquareIsEmpty(oneSqMove, board))   //check if empty
+                        {
+                            legalMoves.Add(oneSqMove);
+                        }
+                        if (Moves.SquareIsEmpty(twoSqMove, board) && Moves.SquareIsEmpty(oneSqMove, board))
+                        {
+                            legalMoves.Add(twoSqMove);
+                        }
                         return legalMoves;
                     default:                  // if not 1, moves up one square
-                        legalMoves.Add(new Square(boardLocation.Row + 1, boardLocation.Col));
+                        var onlySqMove = new Square(boardLocation.Row + 1, boardLocation.Col);
+                       
+                        if (Moves.SquareIsEmpty(onlySqMove, board))
+                        {
+                            legalMoves.Add(onlySqMove);
+                        }
                         return legalMoves;
                 }
             }
             else
             {
-                switch (boardLocation.Row)
+                switch (boardLocation.Row)  // white player
                 {
                     case 6: //moves down one or two squares
-                        legalMoves.Add(new Square(boardLocation.Row - 2, boardLocation.Col));
-                        legalMoves.Add(new Square(boardLocation.Row - 1, boardLocation.Col));
+                        var oneSqMove = new Square(boardLocation.Row - 1, boardLocation.Col);
+                        var twoSqMove = new Square(boardLocation.Row - 2, boardLocation.Col);
+                        
+                        if (Moves.SquareIsEmpty(oneSqMove, board))   // check if empty
+                        {
+                            legalMoves.Add(oneSqMove);
+                        }
+                        if (Moves.SquareIsEmpty(twoSqMove, board)&& Moves.SquareIsEmpty(oneSqMove, board))
+                        {
+                            legalMoves.Add(twoSqMove);
+                        }
                         return legalMoves;
                     default: // if not 6 moves down one square 
-                        legalMoves.Add(new Square(boardLocation.Row - 1, boardLocation.Col));
+                        var onlySqMove = new Square(boardLocation.Row - 1, boardLocation.Col);
+
+                        if (Moves.SquareIsEmpty(onlySqMove, board))
+                        {
+                            legalMoves.Add(onlySqMove);
+                        }                        
                         return legalMoves;
                 }
             }
