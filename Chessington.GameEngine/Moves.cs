@@ -27,5 +27,39 @@ namespace Chessington.GameEngine
             // add code to remove out of bounds moves
             return legalMoves;
         }
+
+        public static List<Square> GetDiagonalMoves(Square boardLocation, List<Square> legalMoves)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                var newPosition = new Square(boardLocation.Row + i, boardLocation.Col + i);
+                
+                // check top right diagonal
+                if (newPosition != boardLocation & newPosition.Row < 8  & newPosition.Col < 8)
+                {
+                    legalMoves.Add(newPosition);
+                }
+                // check top left diagonal
+                newPosition = new Square(boardLocation.Row + i, boardLocation.Col - i);
+                if (newPosition != boardLocation & newPosition.Row < 8 & newPosition.Col >= 0)
+                {
+                    legalMoves.Add(newPosition);
+                }
+                // check bottom right diagonal
+                newPosition = new Square(boardLocation.Row - i, boardLocation.Col + i);
+                if (newPosition != boardLocation & newPosition.Row >= 0 & newPosition.Col < 8)
+                {
+                    legalMoves.Add(newPosition);
+                }
+                //check bottom left diagonal
+                newPosition = new Square(boardLocation.Row - i, boardLocation.Col - i);
+                if (newPosition != boardLocation & newPosition.Row >= 0 & newPosition.Col >= 0)
+                {
+                    legalMoves.Add(newPosition);
+                }
+            }
+           
+            return legalMoves;
+        }
     }
 }
