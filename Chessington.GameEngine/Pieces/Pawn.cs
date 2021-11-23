@@ -22,17 +22,17 @@ namespace Chessington.GameEngine.Pieces
         {
             switch (Player)
             {
-                case Player.Black when boardLocation.Row != 1:
+                case Player.Black when boardLocation.Row != 1: //moves up one square
                     legalMoves.Add(new Square(boardLocation.Row + 1, boardLocation.Col));
                     return legalMoves;
-                case Player.Black when boardLocation.Row == 1:
+                case Player.Black when boardLocation.Row == 1: //moves up one or two squares
                     legalMoves.Add(new Square(boardLocation.Row + 2, boardLocation.Col));
                     legalMoves.Add(new Square(boardLocation.Row + 1, boardLocation.Col));
                     return legalMoves;
-                case Player.White when boardLocation.Row != 7:
+                case Player.White when boardLocation.Row != 7: // moves down one square
                     legalMoves.Add(new Square(boardLocation.Row - 1, boardLocation.Col));
                     return legalMoves;
-                case Player.White when boardLocation.Row == 7:
+                case Player.White when boardLocation.Row == 7: //moves down one or two squares
                     legalMoves.Add(new Square(boardLocation.Row - 2, boardLocation.Col));
                     legalMoves.Add(new Square(boardLocation.Row - 1, boardLocation.Col));
                     return legalMoves;
