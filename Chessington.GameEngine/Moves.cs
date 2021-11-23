@@ -28,6 +28,11 @@ namespace Chessington.GameEngine
             return legalMoves;
         }
 
+        public static bool InBounds(Square position)
+        {
+            return position.Row < 8 && position.Row > 0 && position.Col < 8 && position.Col > 0;
+        }
+
         public static List<Square> GetDiagonalMoves(Square boardLocation, List<Square> legalMoves)
         {
             for (var i = 0; i < 8; i++)
